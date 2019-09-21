@@ -9,15 +9,16 @@ class Path:
     def cd(self, action):
         base_dir = self.path
         
-        if re.match(r'\.\.\/', action):
-            base_dir = re.split(r'[a-z]{1,}$', self.path)[0]
-            action = re.split(r'\.\.\/', action)[1]
-        
-        if re.match(r'\/', action) is None:
-            action = '/' + action  
-            self.path = base_dir + action
-        else:
+        if re.match(r'\/', action):
             self.path = action
+
+        else:
+            if re.match(r'\.\.\/', action):
+                base_dir = re.split(r'[a-z]{1,}$', self.path)[0]
+                action = re.split(r'\.\.\/', action)[1]
+                self.path = base_dir + action
+            else:
+                self.path = base_dir  + '/' + action
 
     @property
     def current_path(self):
