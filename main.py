@@ -8,13 +8,13 @@ class Path:
 
     def cd(self, action):
         base_dir = self.path
-        
+
         if re.match(r'\/', action):
             self.path = action
 
         else:
             if re.match(r'\.\.\/', action):
-                base_dir = re.split(r'[a-z]{1,}$', self.path)[0]
+                base_dir = re.split(r'[a-zA-Z]{1,}$', self.path)[0]
                 action = re.split(r'\.\.\/', action)[1]
                 self.path = base_dir + action
             else:
